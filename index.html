@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRC Platform</title>
+
+  <!--
+    Link to our stylesheet.
+    The browser loads this CSS file and applies styles to everything.
+  -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!--
+    Chart.js is a free charting library we load from a CDN
+    (Content Delivery Network — a server that hosts common libraries).
+    This means we don't need to install anything.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!--
+    SIDEBAR NAVIGATION
+    The user clicks links here to switch between GRC modules.
+    Each link's data-view attribute matches a route registered in router.js.
+  -->
+  <nav id="sidebar">
+    <div class="brand">
+      <span class="brand-icon">🛡</span>
+      <span class="brand-name">GRC Platform</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#dashboard"  data-view="dashboard">📊 Dashboard</a></li>
+      <li><a href="#risks"      data-view="risks">⚠️ Risk Register</a></li>
+      <li><a href="#controls"   data-view="controls">🔒 Controls</a></li>
+      <li><a href="#compliance" data-view="compliance">📋 Compliance</a></li>
+      <li><a href="#incidents"  data-view="incidents">🚨 Incidents</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="btn-export">⬇ Export Data</button>
+      <button id="btn-import">⬆ Import Data</button>
+      <button id="btn-reset">↺ Reset All</button>
+    </div>
+  </nav>
+
+  <!--
+    MAIN CONTENT AREA
+    This div starts empty. When the user clicks a nav link,
+    router.js calls the right module, which fills this div with HTML.
+    This is called a Single Page Application (SPA) pattern.
+  -->
+  <main id="main-content">
+    <div id="view-container"></div>
+  </main>
+
+  <!--
+    MODAL (popup dialog)
+    Hidden by default. When a user clicks "Add Risk" or "Edit",
+    this overlay appears with a form inside it.
+    One modal serves all modules — the content is swapped each time.
+  -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal-box">
+      <button id="modal-close">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!--
+    SCRIPTS — ORDER IS CRITICAL
+    The browser reads these top to bottom.
+    storage.js must load before any module tries to use it.
+    app.js must load last because it starts everything.
+  -->
+  <script src="js/storage.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/modules/dashboard.js"></script>
+  <script src="js/modules/risks.js"></script>
+  <script src="js/modules/controls.js"></script>
+  <script src="js/modules/compliance.js"></script>
+  <script src="js/modules/incidents.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
