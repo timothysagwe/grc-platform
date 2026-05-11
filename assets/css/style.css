@@ -1,23 +1,63 @@
 /* ── CSS CUSTOM PROPERTIES (variables) ─────────────────────────────────────
-   Define colours and sizes once here, use everywhere.
-   If Barclays rebrands, you change these 10 lines, not 200 rules. */
+   Cactus theme palette — matches timothysagwe.github.io portfolio.
+   Light values in :root, dark overrides in [data-theme="dark"]. */
 :root {
-  --navy:        #1F2D4E;
-  --blue:        #2E5FA3;
-  --blue-light:  #D6E4F7;
-  --teal:        #00838F;
+  --bg:          #F9F9F9;
+  --white:       #FFFFFF;
+  --text:        #2C3142;
+  --text-muted:  #5A6175;
+  --border:      #E0E2E8;
+  --navy:        #2C3142;
+  --blue:        #C4502A;
+  --blue-light:  #F5E0D8;
+  --teal:        #3D7A8A;
   --red:         #C62828;
   --amber:       #E65100;
   --gold:        #F0A500;
   --green:       #2E7D32;
-  --bg:          #F0F4F8;
-  --white:       #FFFFFF;
-  --text:        #212121;
-  --text-muted:  #757575;
-  --border:      #E0E0E0;
-  --sidebar-w:   240px;
-  --radius:      8px;
-  --shadow:      0 2px 8px rgba(0,0,0,0.10);
+
+  --nav-link:          #8A95A3;
+  --active-border:     #7EB3FF;
+  --table-row-hover:   #F5F9FF;
+  --form-label:        #444;
+  --btn-primary-hover: #A33D1E;
+  --status-open-bg:    #FFEBEE;
+  --status-progress-bg:#FFF3E0;
+  --status-closed-bg:  #E8F5E9;
+  --status-accepted-bg:#E3F2FD;
+  --status-review-bg:  #FFF8E1;
+
+  --sidebar-w: 240px;
+  --radius:    8px;
+  --shadow:    0 2px 8px rgba(0,0,0,0.10);
+}
+
+[data-theme="dark"] {
+  --bg:          #1E2130;
+  --white:       #252A3C;
+  --text:        #CDD0D8;
+  --text-muted:  #A3A8B8;
+  --border:      #343A52;
+  --navy:        #1A1F30;
+  --blue:        #34C4A0;
+  --blue-light:  #1A3832;
+  --teal:        #E07A5F;
+  --shadow:      0 2px 8px rgba(0,0,0,0.40);
+
+  --nav-link:          #7A8499;
+  --active-border:     #34C4A0;
+  --table-row-hover:   #2A3045;
+  --form-label:        #B0B8C8;
+  --btn-primary-hover: #29A888;
+  --status-open-bg:    #3A1A1A;
+  --status-progress-bg:#3A2800;
+  --status-closed-bg:  #1A3020;
+  --status-accepted-bg:#1A2A3A;
+  --status-review-bg:  #3A3010;
+}
+
+html {
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
 }
 
 /* ── RESET ──────────────────────────────────────────────────────────────── */
@@ -55,14 +95,14 @@ body {
 .nav-links li a {
   display: block;
   padding: .7rem 1.25rem;
-  color: #B0BEC5;
+  color: var(--nav-link);
   text-decoration: none;
   font-size: .9rem;
   transition: background .15s, color .15s;
   border-left: 3px solid transparent;
 }
 .nav-links li a:hover  { background: rgba(255,255,255,0.07); color: var(--white); }
-.nav-links li a.active { background: var(--blue); color: var(--white); border-left-color: #7EB3FF; }
+.nav-links li a.active { background: var(--blue); color: var(--white); border-left-color: var(--active-border); }
 .sidebar-footer {
   padding: 1rem .75rem;
   border-top: 1px solid rgba(255,255,255,0.1);
@@ -73,7 +113,7 @@ body {
 .sidebar-footer button {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.25);
-  color: #B0BEC5;
+  color: var(--nav-link);
   padding: .45rem .75rem;
   border-radius: var(--radius);
   cursor: pointer;
@@ -100,7 +140,7 @@ body {
   align-items: flex-start;
   margin-bottom: 1.75rem;
 }
-.page-header h1    { font-size: 1.6rem; color: var(--navy); }
+.page-header h1    { font-size: 1.6rem; color: var(--text); }
 .page-header .subtitle { color: var(--text-muted); font-size: .9rem; margin-top: .2rem; }
 
 /* ── KPI CARDS ──────────────────────────────────────────────────────────── */
@@ -137,7 +177,7 @@ body {
   padding: 1.5rem;
   box-shadow: var(--shadow);
 }
-.chart-card h3  { font-size: 1rem; color: var(--navy); margin-bottom: 1rem; }
+.chart-card h3  { font-size: 1rem; color: var(--text); margin-bottom: 1rem; }
 
 /* ── HEAT MAP ───────────────────────────────────────────────────────────── */
 .section-card {
@@ -147,7 +187,7 @@ body {
   box-shadow: var(--shadow);
   margin-bottom: 2rem;
 }
-.section-card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 1rem; }
+.section-card h3 { font-size: 1rem; color: var(--text); margin-bottom: 1rem; }
 .heat-map        { border-collapse: collapse; width: 100%; text-align: center; }
 .heat-map th     { background: var(--navy); color: var(--white);
                    padding: .6rem .5rem; font-size: .8rem; }
@@ -157,7 +197,7 @@ body {
 .hm-medium       { background: var(--gold); }
 .hm-low          { background: var(--green); }
 .hm-count        { display: inline-block; background: rgba(255,255,255,0.9);
-                   color: #333; border-radius: 50%; width: 28px; height: 28px;
+                   color: var(--text); border-radius: 50%; width: 28px; height: 28px;
                    line-height: 28px; font-weight: 700; font-size: .85rem; }
 
 /* ── TABLE ──────────────────────────────────────────────────────────────── */
@@ -175,7 +215,7 @@ thead th           { background: var(--navy); color: var(--white);
 tbody td           { padding: .6rem 1rem; border-bottom: 1px solid var(--border);
                      font-size: .88rem; vertical-align: middle; }
 tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover td  { background: #F5F9FF; }
+tbody tr:hover td  { background: var(--table-row-hover); }
 .td-center         { text-align: center; }
 .empty-row         { text-align: center; color: var(--text-muted);
                      padding: 3rem !important; font-style: italic; }
@@ -195,6 +235,7 @@ tbody tr:hover td  { background: #F5F9FF; }
   border-radius: var(--radius);
   font-size: .85rem;
   background: var(--white);
+  color: var(--text);
 }
 .filter-bar input  { min-width: 200px; }
 
@@ -222,13 +263,13 @@ tbody tr:hover td  { background: #F5F9FF; }
 /* Status pills */
 .status-pill          { display: inline-block; padding: .2rem .65rem;
                         border-radius: 12px; font-size: .78rem; font-weight: 600; }
-.status-open          { background: #FFEBEE; color: var(--red); }
-.status-in-progress   { background: #FFF3E0; color: var(--amber); }
-.status-closed        { background: #E8F5E9; color: var(--green); }
-.status-accepted      { background: #E3F2FD; color: var(--blue); }
-.status-compliant     { background: #E8F5E9; color: var(--green); }
-.status-non-compliant { background: #FFEBEE; color: var(--red); }
-.status-in-review     { background: #FFF8E1; color: var(--gold); }
+.status-open          { background: var(--status-open-bg);     color: var(--red); }
+.status-in-progress   { background: var(--status-progress-bg); color: var(--amber); }
+.status-closed        { background: var(--status-closed-bg);   color: var(--green); }
+.status-accepted      { background: var(--status-accepted-bg); color: var(--blue); }
+.status-compliant     { background: var(--status-closed-bg);   color: var(--green); }
+.status-non-compliant { background: var(--status-open-bg);     color: var(--red); }
+.status-in-review     { background: var(--status-review-bg);   color: var(--gold); }
 
 /* ── BUTTONS ────────────────────────────────────────────────────────────── */
 .btn-primary {
@@ -238,7 +279,7 @@ tbody tr:hover td  { background: #F5F9FF; }
   font-weight: 600; font-size: .9rem;
   transition: background .15s;
 }
-.btn-primary:hover  { background: #1D4B8A; }
+.btn-primary:hover  { background: var(--btn-primary-hover); }
 .btn-secondary      { background: var(--white); color: var(--blue);
                       border: 1px solid var(--blue);
                       padding: .55rem 1.1rem; border-radius: var(--radius);
@@ -273,20 +314,20 @@ tbody tr:hover td  { background: #F5F9FF; }
   background: none; border: none;
   font-size: 1.3rem; cursor: pointer; color: var(--text-muted);
 }
-#modal-box h2 { color: var(--navy); margin-bottom: 1.5rem; font-size: 1.2rem; }
+#modal-box h2 { color: var(--text); margin-bottom: 1.5rem; font-size: 1.2rem; }
 
 /* ── FORMS ──────────────────────────────────────────────────────────────── */
 .grc-form label {
   display: flex; flex-direction: column;
   gap: .3rem; margin-bottom: 1rem;
-  font-size: .88rem; font-weight: 600; color: #444;
+  font-size: .88rem; font-weight: 600; color: var(--form-label);
 }
 .grc-form input,
 .grc-form select,
 .grc-form textarea {
   border: 1px solid var(--border);
   border-radius: 6px; padding: .5rem .75rem;
-  font-size: .9rem; color: var(--text);
+  font-size: .9rem; color: var(--text); background: var(--white);
   transition: border-color .15s;
 }
 .grc-form input:focus,

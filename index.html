@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GRC Platform</title>
 
-  <!--
-    Link to our stylesheet.
-    The browser loads this CSS file and applies styles to everything.
-  -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme',
+        (t === 'light' || t === 'dark') ? t : 'dark');
+    })();
+  </script>
+
   <link rel="stylesheet" href="assets/css/style.css" />
 
   <!--
@@ -40,6 +44,7 @@
     </ul>
 
     <div class="sidebar-footer">
+      <button id="btn-theme" aria-label="Switch to light mode" title="Switch to light mode"><span id="theme-icon">☀️</span> Toggle Theme</button>
       <button id="btn-export">⬇ Export Data</button>
       <button id="btn-import">⬆ Import Data</button>
       <button id="btn-reset">↺ Reset All</button>

@@ -9,6 +9,33 @@
   5. Start the router
 */
 
+// ── THEME SYSTEM ──────────────────────────────────────────────────────────────
+function getUserTheme() {
+  var t = localStorage.getItem('theme');
+  return (t === 'light' || t === 'dark') ? t : 'dark';
+}
+
+function setTheme(theme) {
+  if (theme !== 'light' && theme !== 'dark') return;
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  var icon = document.getElementById('theme-icon');
+  var btn  = document.getElementById('btn-theme');
+  if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  if (btn) {
+    var label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+  }
+}
+
+document.getElementById('btn-theme').addEventListener('click', function () {
+  var current = document.documentElement.getAttribute('data-theme') || 'dark';
+  setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+setTheme(getUserTheme());
+
 // ── MODAL HELPER ──────────────────────────────────────────────────────────────
 const Modal = {
   open()  { document.getElementById('modal-overlay').classList.remove('hidden'); },
